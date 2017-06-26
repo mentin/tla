@@ -13,12 +13,11 @@ IsSafe == \/ locs'["Goat"] = locs'["Man"]
           \/ (/\ locs'["Goat"] /= locs'["Wolf"] 
               /\ locs'["Goat"] /= locs'["Cabbage"])
 
-CrossAlone == locs' = [locs EXCEPT !["Man"] = ~locs["Man"]]
-              
+(* CrossWith("Man") is crossing alone *)              
 CrossWith(x) == /\ locs["Man"] = locs[x]
                 /\ locs' = [locs EXCEPT !["Man"] = ~locs[x], ![x] = ~locs[x]] 
   
-Next == /\ (CrossAlone \/ CrossWith("Goat") \/ CrossWith("Wolf") \/ CrossWith("Cabbage"))
+Next == /\ (\E x \in Things : CrossWith(x))
         /\ IsSafe
 
 (* assertion we trying to fail: everybody crossed *)
@@ -26,5 +25,5 @@ IsDone ==  locs = [x \in Things |-> TRUE]
 
 =============================================================================
 \* Modification History
-\* Last modified Mon Jun 19 23:47:00 PDT 2017 by mentin
+\* Last modified Sun Jun 25 23:17:31 PDT 2017 by mentin
 \* Created Fri Jun 16 21:37:52 PDT 2017 by mentin
