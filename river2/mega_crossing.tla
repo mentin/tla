@@ -21,9 +21,8 @@ CrossWith(x) == /\ locs["Man"] = locs[x]
 Next == /\ (CrossAlone \/ CrossWith("Goat") \/ CrossWith("Wolf") \/ CrossWith("Cabbage"))
         /\ IsSafe
 
-Spec == Init /\ [][Next]_<<locs>> 
-
-IsDone ==  locs = [x \in Things |-> TRUE]  (* everybody crossed *)
+(* assertion we trying to fail: everybody crossed *)
+IsDone ==  locs = [x \in Things |-> TRUE]
 
 =============================================================================
 \* Modification History
